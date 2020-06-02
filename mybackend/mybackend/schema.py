@@ -1,9 +1,15 @@
 import graphene
+import todos.mutations
+import todos.queries
 from graphene_django.debug import DjangoDebug
 
 
-class Query(graphene.ObjectType):
+class Query(todos.queries.Query, graphene.ObjectType):
     debug = graphene.Field(DjangoDebug, name="_debug")
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(todos.mutations.Mutation, graphene.ObjectType):
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
